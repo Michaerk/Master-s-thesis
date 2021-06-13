@@ -1,0 +1,71 @@
+ &nmlSystem
+  txtitle ='1 pa chain (30 segments) and counterions',
+  txmethod='mc',    txensemb='nvt',     txbc ='xyz',    txstart ='zero',
+  boxlen= 3*300,
+  nstep1= 30,        nstep2= 40000,
+  nstep1= 50,        nstep2= 40000,
+  temp  = 298.0,    prsr = 0.1013,
+  iseed = 12354,
+  lcont =.t.,  laver =.t.,  ldist =.f.,  ldump =.f.,  lgroup=.t.,  lstatic =.t., limage =.t.,
+  itest = 0,   ipart = 0,   iatom = 0,   iaver = 0,   ishow = 1,   iplot = 1,   ilist = 1,
+ /
+ &nmlScale
+ /
+ &nmlParticle
+  nct   = 1,
+  txct  ='30-mer',
+  ncct  = 1,
+  npptct(1,1) = 30,	!30,
+  npt   = 2,
+  txpt  = 'tail',  'ct+',   
+  nppt  = 30,     30,     
+  natpt = 1,       1,     
+
+  txat  =  'bead', 'ct+', 
+  massat=   8.0,   8.0,
+  radat =   2.0,   2.0,
+  zat   =    -1,      1,   
+
+  naatpt(1,1) =  1,
+  naatpt(1,2) =  1,
+  txaat( 1,1) = 'pebead',
+  txaat( 1,2) = 'ct+',
+
+ /
+ &nmlPotential
+  rcut = 150.,
+
+  relpermitt = 78.4,
+  lscrc =.true.,       scrlen = 6.8,
+ /
+ &nmlPotentialChain bond = 2.4, 2, 5.0, angle = 0.0048 /
+ &nmlSetConfiguration
+  txsetconf(1) = 'random',
+  txsetconf(2) = 'random',
+ /
+ &nmlMC
+  isamp = 1,
+  pspart = 1.0, 1.0,  dtran = 3.0, 10.,  
+  ppivot = 0.10,  drotpivot = 90.0, 
+  pchain = 0.01,  dtranchain = 5.0,
+ /
+ &nmlIntList inlist = 0, drnlist = 180.0 /
+ &nmlGroup /
+ &nmlStatic
+  istatic = 1,
+  lrdf =.true.,
+  lltt  =.f.,
+  lcbpc =.f.,
+  lchainDF = .t.,
+ /
+ &nmlRDF vtype(2) =.true., 0.0, 100.0, rmax=120.54, func='rdf' /
+ &nmlLoopTailTrain adscond = 'part=1',, 25.0d0 /
+ &nmlCBPC iptpart= 1, rcontact = 25.0 /
+ &nmlChainDF
+  vtype(2) = .t., 0., 100., 101, 
+  vtype(3) = .t., 0., 50., 51, /
+ &nmlImage lvrml =.true. /
+ &nmlVRML tximage(3) = 'undopbc', txfile= 'separated', txwhen= 'after_macro', atsize = 2.0, 2.0,  rgbcolor = 	0,1,1, 1,1,0, blmax =0.0, bondr = 0.2 /
+
+
+
